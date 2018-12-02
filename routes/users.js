@@ -29,7 +29,7 @@ console.log("connection established....");
 // assert.equal(null, err);
 var dbName = client.db("c2t"); 
 var users = []; 
-var allUsers = dbName.collection('demo').find( {}); 
+var allUsers = dbName.collection('users').find( {}); 
 console.log(allUsers, "kkkkkkkkkkkkkkk"); 
 
 allUsers.forEach(element =>  {
@@ -42,12 +42,6 @@ res.send(JSON.stringify(users));
 }); 
 })
 
-// res.send(getUsersData());
-}); 
-
-router.post('/updateUser', function(req, res, next) {
-
-res.send("post"); 
 }); 
 
 function getUsersData() {
@@ -58,5 +52,63 @@ let jsonObj =  {
 return jsonObj; 
 
 }
+
+router.post('/login', function (req, res, next) {
+mongo.connect(url,  {useNewUrlParser:true }, function (err, client) {
+if (err) {
+console.log("connection not established"); 
+}else {
+		console.log("connection established...."); 
+var dbName = client.db("c2t"); 
+var users = []; 
+var checkExist = req.body; 
+
+var allUsers = dbName.collection('users').find(checkExist); 
+console.log(typeof allUsers, "getting data"); 
+
+
+allUsers.forEach(element =>  {
+// assert.equal(null,err);
+users.push(JSON.stringify(element)); 
+
+}, function() {
+client.close(); 
+if (users.length == 0) {
+res.send( {"failureMesssage":"Invalid credentials"}); 
+}
+else {
+res.send( {"rowData":users.toString(), "successMessage":"success"}); 
+}
+}); 
+
+}
+})
+})
+
+
+
+router.post('/signup', function (req, res, next) {
+console.log(req.body, "req obj"); 
+mongo.connect(url,  {useNewUrlParser:true }, function (err, client) {
+	if (err) {
+	console.log("connection not established"); 
+}else {
+		console.log("connection established...."); 
+var dbName = client.db("c2t"); 
+const INSERT_RECORD = req.body; 
+var allUsers = dbName.collection('users').insertOne(INSERT_RECORD); 
+res.header('Access-Control-Allow-Origin', "*"); 
+res.header('Access-Control-Allow-Headers', 'Content-Type'); 
+res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS'); 
+// res.status(500).json({ error: 'message' })
+res.status(200).send( {'messsage':'Registered successfully'}); 
+		// res.send("post"); 
+
+	}
+
+})
+
+})
+
 
 module.exports = router; 
