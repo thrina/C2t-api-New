@@ -17,7 +17,8 @@ res.header('Access-Control-Allow-Headers', 'Content-Type');
 res.send(getUsersData()); 
 }); 
 
-router.get('/get-users', function(req, res, next) {
+router.get('/getuser', function (req, res, next) {
+	var userDetails = req.body;
 var resultArray = []; 
 mongo.connect(url,  {useNewUrlParser:true }, function(err, client) {
 if (err) {
@@ -29,10 +30,14 @@ console.log("connection established....");
 // assert is from node js used to check errors.
 // assert.equal(null, err);
 var dbName = client.db("c2t"); 
-var users = []; 
-var allUsers = dbName.collection('users').find( {}); 
+	var users = []; 
+	var allUsers = [];
+	if (userDetails && userDetails._id) {
+		allUsers = dbName.collection('users').find( {"_id":ObjectID(userDetails._id)});
+	} else {
+ 		allUsers = dbName.collection('users').find( {}); 
+	}
 console.log(allUsers, "kkkkkkkkkkkkkkk"); 
-
 allUsers.forEach(element =>  {
 // assert.equal(null,err);
 users.push(JSON.stringify(element)); 
@@ -46,7 +51,7 @@ res.send(JSON.stringify(users));
 }); 
 
 function getUsersData() {
-let jsonObj =  {
+var jsonObj =  {
 "rows":[ {"userName":"pavan"},  {"userName":"vijay"}, 
 ]
   }
