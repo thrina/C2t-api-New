@@ -3,6 +3,7 @@ var router = express.Router();
 var mongo = require('mongodb'); 
 var assert = require('assert'); 
 var JSON = require('circular-json'); 
+var ObjectID = require('mongodb').ObjectID;
 
 var url = "mongodb://localhost:27017/";
 
@@ -88,26 +89,53 @@ res.send( {"rowData":users.toString(), "successMessage":"success"});
 
 
 router.post('/signup', function (req, res, next) {
-console.log(req.body, "req obj"); 
-mongo.connect(url,  {useNewUrlParser:true }, function (err, client) {
-	if (err) {
-	console.log("connection not established"); 
-}else {
-		console.log("connection established...."); 
-var dbName = client.db("c2t"); 
-const INSERT_RECORD = req.body; 
-var allUsers = dbName.collection('users').insertOne(INSERT_RECORD); 
-res.header('Access-Control-Allow-Origin', "*"); 
-res.header('Access-Control-Allow-Headers', 'Content-Type'); 
-res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS'); 
-// res.status(500).json({ error: 'message' })
-res.status(200).send( {'messsage':'Registered successfully'}); 
-		// res.send("post"); 
-
+	console.log(req.body, "req obj"); 
+	res.header('Access-Control-Allow-Origin', "*"); 
+	res.header('Access-Control-Allow-Headers', 'Content-Type'); 
+	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS'); 
+	mongo.connect(url,  {useNewUrlParser:true }, function (err, client) {
+		if (err) {
+		console.log("connection not established"); 
+	}else {
+			console.log("connection established...."); 
+	var dbName = client.db("c2t"); 
+	const INSERT_RECORD = req.body; 
+	var allUsers = dbName.collection('users').insertOne(INSERT_RECORD); 
+	client.close(); 
+	res.status(200).send( {'messsage':'Registered successfully'}); 
 	}
-
+})
 })
 
+router.put('/updateuser', function (req, res, next) {
+	console.log(req.body, "req obj"); 
+	res.header('Access-Control-Allow-Origin', "*"); 
+	res.header('Access-Control-Allow-Headers', 'Content-Type'); 
+	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+	mongo.connect(url, { useNewUrlParser: true }, function (err, client) {
+		
+		if (err) {
+			console.log("connection not established");
+		} else {
+			console.log("connection established....");
+			var dbName = client.db("c2t"); 
+			const UPDATE_RECORD = JSON.parse(JSON.stringify(req.body)); 
+			console.log("UPDATE_RECORD", UPDATE_RECORD);
+			
+			delete req.body._id;
+			var updatUser = dbName.collection('users').updateOne({"_id":ObjectID(UPDATE_RECORD._id)}, {$set:req.body}, function(err, result){
+				if (err) {
+					console.log('Error updating object: ' + err);
+					client.close(); 
+					res.send({ 'error': 'An error has occurred' });
+				} else {
+					console.log('' + result + ' document(s) updated');
+					client.close(); 
+					res.status(200).send( {"data":result,'messsage':'success'}); 
+				}
+				}); 
+		}
+	})
 })
 
 
