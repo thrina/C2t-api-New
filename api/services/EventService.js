@@ -1,5 +1,5 @@
 var pUtil = require('../util/PageUtil');
-var News = require('../models/newsModel');
+var EventModel = require('../models/eventModel');
 var _ = require('underscore');
 
 module.exports = {
@@ -21,22 +21,22 @@ module.exports = {
         }
         if (orSearch.length) { query["$or"] = orSearch; }
         if (category) { query["category"] = category; }
-        if (req.query.newsDate) { query["newsDate"] = new Date(req.query.newsDate); }
+        if (req.query.eventDate) { query["eventDate"] = new Date(req.query.eventDate); }
         if (req.query.status) { query["status"] = req.query.status; }
 
         var result = {};
-        News.count(query, function (err, value) {
+        EventModel.count(query, function (err, value) {
             result.totalRecords = value;
             result.total = pUtil.calculateTotalPages(value, Paging['limit']);
-            News.find(query, "", Paging, function (err, news) {
+            EventModel.find(query, "", Paging, function (err, events) {
                 if (err) {
                     return next({
                         "status": "Failed to query DB"
                     });
                 };
-                if (news.length >= 0) {
+                if (events.length >= 0) {
                     result.status = "success";
-                    result.rows = news
+                    result.rows = events
                 };
                 return next(null, result);
 
@@ -46,18 +46,18 @@ module.exports = {
 
     findOne: function (req, next) {
         var query = {}
-        query._id = req.params.newsID;
+        query._id = req.params.eventID;
 
         var result = {};
-        News.findOne(query, function (err, news) {
+        EventModel.findOne(query, function (err, events) {
             if (err) {
                 return next({
                     "status": "Failed to query DB"
                 });
             };
             result.status = 'success';
-            result.totalRecords = news.length;
-            result.rows = news;
+            result.totalRecords = events.length;
+            result.rows = events;
             return next(null, result);
 
         });
@@ -69,48 +69,48 @@ module.exports = {
                 "message": "Title is mandatory"
             })
         }
-        if (req.body.newsDate) {
-            req.body.newsDate = new Date(obj.newsDate);
+        if (req.body.eventDate) {
+            req.body.eventDate = new Date(obj.eventDate);
         };
-        News.create(req.body, function (err, news) {
+        EventModel.create(req.body, function (err, events) {
             var result = {};
             if (err) {
                 return next({
                     "status": "Failed to query DB"
                 })
             };
-            if (!news) {
+            if (!events) {
                 next({
                     "status": "No data found"
                 });
                 return;
             };
             result.status = 'success';
-            result.totalRecords = news.length;
-            result.rows = news;
+            result.totalRecords = events.length;
+            result.rows = events;
             return next(null, result);
         });
     },
 
     update: function (req, obj, next) {
         var query = {}
-        query._id = req.params.newsID;
-        News.findOne(query, function (err, retNews) {
+        query._id = req.params.eventID;
+        EventModel.findOne(query, function (err, retData) {
             if (err) {
                 return next({
                     "status": "Failed to query DB"
                 });
             };
-            if (!retNews) {
+            if (!retData) {
                 return next({
-                    "status": "News not found"
+                    "status": "Event not found"
                 });
             };
             delete obj.id;
-            if (obj.newsDate) {
-                obj.newsDate = new Date(obj.newsDate);
+            if (obj.eventDate) {
+                obj.eventDate = new Date(obj.eventDate);
             };
-            News.update(query, obj, function (err, news) {
+            EventModel.update(query, obj, function (err, events) {
                 if (err) {
                     return next({
                         "status": "Failed to query DB"
@@ -126,8 +126,8 @@ module.exports = {
 
     delete: function (req, obj, next) {
         var query = {}
-        query._id = req.params.newsID;
-        News.deleteMany(query).exec(function (err) {
+        query._id = req.params.eventID;
+        EventModel.deleteMany(query).exec(function (err) {
             if (err) {
                 return res.send({
                     "status": "Failed to query DB"
