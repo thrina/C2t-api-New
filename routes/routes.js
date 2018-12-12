@@ -30,16 +30,16 @@ router.delete('/event/:eventID', eventController.delete);
 /***************************************************************************/
 
 
-const advitismentsController = require('../api/controllers/AdvitismentController');
+const advertisementController = require('../api/controllers/AdvertisementController');
 
 /***************************************************************************/
 /*News Controller*/
 /***************************************************************************/
-router.get('/advitisment/list', advitismentsController.find);
-router.post('/advitisment/create', advitismentsController.create);
-router.get('/advitisment/:advitismentID', advitismentsController.findOne);
-router.put('/advitisment/:advitismentID', advitismentsController.update);
-router.delete('/advitisment/:advitismentID', advitismentsController.delete);
+router.get('/advertisement/list', advertisementController.find);
+router.post('/advertisement/create', advertisementController.create);
+router.get('/advertisement/:advertisementID', advertisementController.findOne);
+router.put('/advertisement/:advertisementID', advertisementController.update);
+router.delete('/advertisement/:advertisementID', advertisementController.delete);
 
 
 
