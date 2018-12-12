@@ -55,6 +55,12 @@ module.exports = {
                     "status": "Failed to query DB"
                 });
             };
+            if (!advertisements) {
+                next({
+                    "status": "No data found"
+                });
+                return;
+            };
             result.status = 'success';
             result.totalRecords = advertisements.length;
             result.rows = advertisements;
