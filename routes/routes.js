@@ -18,7 +18,7 @@ router.delete('/news/:newsID', newsController.delete);
 const eventController = require('../api/controllers/EventController');
 
 /***************************************************************************/
-/*News Controller*/
+/*Event Controller*/
 /***************************************************************************/
 router.get('/event/list', eventController.find);
 router.post('/event/create', eventController.create);
@@ -33,13 +33,43 @@ router.delete('/event/:eventID', eventController.delete);
 const advertisementController = require('../api/controllers/AdvertisementController');
 
 /***************************************************************************/
-/*News Controller*/
+/*Advertisement Controller*/
 /***************************************************************************/
 router.get('/advertisement/list', advertisementController.find);
 router.post('/advertisement/create', advertisementController.create);
 router.get('/advertisement/:advertisementID', advertisementController.findOne);
 router.put('/advertisement/:advertisementID', advertisementController.update);
 router.delete('/advertisement/:advertisementID', advertisementController.delete);
+
+
+/***************************************************************************/
+
+
+const categoryController = require('../api/controllers/CategoryController');
+
+/***************************************************************************/
+/*Category Controller*/
+/***************************************************************************/
+router.get('/category/list', categoryController.find);
+router.post('/category/create', categoryController.create);
+router.get('/category/:categoryID', categoryController.findOne);
+router.put('/category/:categoryID', categoryController.update);
+router.delete('/category/:categoryID', categoryController.delete);
+
+
+/***************************************************************************/
+
+
+const talentController = require('../api/controllers/TalentsController');
+
+/***************************************************************************/
+/*Talent Controller*/
+/***************************************************************************/
+router.get('/talent/list', talentController.find);
+router.post('/talent/create', talentController.create);
+router.get('/talent/:talentID', talentController.findOne);
+router.put('/talent/:talentID', talentController.update);
+router.delete('/talent/:talentID', talentController.delete);
 
 
 
