@@ -1,5 +1,20 @@
 const express = require('express');
 const router = express.Router();
+
+const userConroller = require('../api/controllers/UserConroller');
+
+/***************************************************************************/
+/*Users Controller*/
+/***************************************************************************/
+router.get('/user/list', userConroller.find);
+router.get('/myaccount/:userID', userConroller.findOne);
+router.put('/myaccount/:userID', userConroller.update);
+router.delete('/myaccount/:userID', userConroller.delete);
+
+
+/***************************************************************************/
+
+
 const newsController = require('../api/controllers/NewsController');
 
 /***************************************************************************/
