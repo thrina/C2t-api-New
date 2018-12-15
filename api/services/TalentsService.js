@@ -45,7 +45,7 @@ module.exports = {
         query._id = req.params.talentID;
 
         var result = {};
-        Talent.findOne(query, function (err, talents) {
+        Talent.find(query, function (err, talents) {
             if (err) {
                 return next({
                     "status": "Failed to query DB"

@@ -49,7 +49,7 @@ module.exports = {
         query._id = req.params.newsID;
 
         var result = {};
-        News.findOne(query, function (err, news) {
+        News.find(query, function (err, news) {
             if (err) {
                 return next({
                     "status": "Failed to query DB"

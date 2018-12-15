@@ -49,7 +49,7 @@ module.exports = {
         query._id = req.params.advertisementID;
 
         var result = {};
-        AdvertisementModel.findOne(query, function (err, advertisements) {
+        AdvertisementModel.find(query, function (err, advertisements) {
             if (err) {
                 return next({
                     "status": "Failed to query DB"

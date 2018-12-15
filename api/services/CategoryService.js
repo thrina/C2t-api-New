@@ -45,7 +45,7 @@ module.exports = {
         query._id = req.params.categoryID;
 
         var result = {};
-        Category.findOne(query, function (err, categories) {
+        Category.find(query, function (err, categories) {
             if (err) {
                 return next({
                     "status": "Failed to query DB"

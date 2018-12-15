@@ -49,7 +49,7 @@ module.exports = {
         query._id = req.params.eventID;
 
         var result = {};
-        EventModel.findOne(query, function (err, events) {
+        EventModel.find(query, function (err, events) {
             if (err) {
                 return next({
                     "status": "Failed to query DB"
