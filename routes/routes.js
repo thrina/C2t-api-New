@@ -1,6 +1,17 @@
 const express = require('express');
 const router = express.Router();
 
+const authConroller = require('../api/controllers/AuthConroller');
+
+/***************************************************************************/
+/*Auth Controller*/
+/***************************************************************************/
+router.post('/myaccount/signup', authConroller.signup);
+router.post('/myaccount/login', authConroller.login);
+
+
+/***************************************************************************/
+
 const userConroller = require('../api/controllers/UserConroller');
 
 /***************************************************************************/
