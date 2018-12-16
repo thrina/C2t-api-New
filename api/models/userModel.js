@@ -39,7 +39,7 @@ const UserSchema = new Schema({
         trim: true,
         required: false
     },
-    roleCode: {
+    role: {
         type: String,
         uppercase: true,
         trim: true,

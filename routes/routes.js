@@ -98,5 +98,35 @@ router.put('/talent/:talentID', talentController.update);
 router.delete('/talent/:talentID', talentController.delete);
 
 
+/***************************************************************************/
+
+
+const portfolioController = require('../api/controllers/PortfolioController');
+
+/***************************************************************************/
+/*Portfolio Controller*/
+/***************************************************************************/
+router.get('/portfolio/list', portfolioController.find);
+router.post('/portfolio/create', portfolioController.create);
+router.get('/portfolio/:id', portfolioController.findOne);
+router.put('/portfolio/:id', portfolioController.update);
+router.delete('/portfolio/:id', portfolioController.delete);
+
+
+/***************************************************************************/
+
+
+const businessController = require('../api/controllers/BusinessController');
+
+/***************************************************************************/
+/*Business Controller*/
+/***************************************************************************/
+router.get('/business/list', businessController.find);
+router.post('/business/create', businessController.create);
+router.get('/business/:id', businessController.findOne);
+router.put('/business/:id', businessController.update);
+router.delete('/business/:id', businessController.delete);
+
+
 
 module.exports = router;
