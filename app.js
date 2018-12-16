@@ -47,7 +47,7 @@ app.get('/', function (req, res) {
 });
 
 // public route
-app.use('/', publicRouter);
+app.use('/c2tapi', publicRouter);
 
 // // private route
 // app.use('/', validateUser, route);
