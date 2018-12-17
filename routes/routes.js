@@ -128,5 +128,20 @@ router.put('/business/:id', businessController.update);
 router.delete('/business/:id', businessController.delete);
 
 
+/***************************************************************************/
+
+
+const teamController = require('../api/controllers/TeamController');
+
+/***************************************************************************/
+/*Team Controller*/
+/***************************************************************************/
+router.get('/team/list', teamController.find);
+router.post('/team/create', teamController.create);
+router.get('/team/:id', teamController.findOne);
+router.put('/team/:id', teamController.update);
+router.delete('/team/:id', teamController.delete);
+
+
 
 module.exports = router;
