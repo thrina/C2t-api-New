@@ -22,7 +22,7 @@ const NewsSchema = new Schema({
 		type: String,
 		trim: true,
 	},
-	newsDate: {
+	date: {
 		type: Date,
 		trim: true
 	},

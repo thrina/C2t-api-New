@@ -22,7 +22,7 @@ const AdvertisementSchema = new Schema({
         type: String,
         trim: true,
     },
-    advertisementDate: {
+    date: {
         type: Date,
         trim: true
     },

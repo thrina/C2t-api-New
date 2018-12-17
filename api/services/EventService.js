@@ -21,7 +21,7 @@ module.exports = {
         }
         if (orSearch.length) { query["$or"] = orSearch; }
         if (category) { query["category"] = category; }
-        if (req.query.eventDate) { query["eventDate"] = new Date(req.query.eventDate); }
+        if (req.query.date) { query["date"] = new Date(req.query.date); }
         if (req.query.status) { query["status"] = req.query.status; }
 
         var result = {};
@@ -75,8 +75,8 @@ module.exports = {
                 "message": "Title is mandatory"
             })
         }
-        if (req.body.eventDate) {
-            req.body.eventDate = new Date(obj.eventDate);
+        if (req.body.date) {
+            req.body.date = new Date(obj.date);
         };
         EventModel.create(req.body, function (err, events) {
             var result = {};
@@ -113,8 +113,8 @@ module.exports = {
                 });
             };
             delete obj.id;
-            if (obj.eventDate) {
-                obj.eventDate = new Date(obj.eventDate);
+            if (obj.date) {
+                obj.date = new Date(obj.date);
             };
             EventModel.update(query, obj, function (err, events) {
                 if (err) {

@@ -21,7 +21,7 @@ module.exports = {
         }
         if (orSearch.length) { query["$or"] = orSearch; }
         if (category) { query["category"] = category; }
-        if (req.query.newsDate) { query["newsDate"] = new Date(req.query.newsDate); }
+        if (req.query.date) { query["date"] = new Date(req.query.date); }
         if (req.query.status) { query["status"] = req.query.status; }
 
         var result = {};
@@ -75,8 +75,8 @@ module.exports = {
                 "message": "Title is mandatory"
             })
         }
-        if (req.body.newsDate) {
-            req.body.newsDate = new Date(obj.newsDate);
+        if (req.body.date) {
+            req.body.date = new Date(obj.date);
         };
         News.create(req.body, function (err, news) {
             var result = {};
@@ -113,8 +113,8 @@ module.exports = {
                 });
             };
             delete obj.id;
-            if (obj.newsDate) {
-                obj.newsDate = new Date(obj.newsDate);
+            if (obj.date) {
+                obj.date = new Date(obj.date);
             };
             News.update(query, obj, function (err, news) {
                 if (err) {

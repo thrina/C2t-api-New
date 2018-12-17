@@ -21,7 +21,7 @@ module.exports = {
         }
         if (orSearch.length) { query["$or"] = orSearch; }
         if (category) { query["category"] = category; }
-        if (req.query.advertisementDate) { query["advertisementDate"] = new Date(req.query.advertisementDate); }
+        if (req.query.date) { query["date"] = new Date(req.query.date); }
         if (req.query.status) { query["status"] = req.query.status; }
 
         var result = {};
@@ -75,8 +75,8 @@ module.exports = {
                 "message": "Title is mandatory"
             })
         }
-        if (req.body.advertisementDate) {
-            req.body.advertisementDate = new Date(obj.advertisementDate);
+        if (req.body.date) {
+            req.body.date = new Date(obj.date);
         };
         AdvertisementModel.create(req.body, function (err, advertisements) {
             var result = {};
@@ -113,8 +113,8 @@ module.exports = {
                 });
             };
             delete obj.id;
-            if (obj.advertisementDate) {
-                obj.advertisementDate = new Date(obj.advertisementDate);
+            if (obj.date) {
+                obj.date = new Date(obj.date);
             };
             AdvertisementModel.update(query, obj, function (err, advertisements) {
                 if (err) {
