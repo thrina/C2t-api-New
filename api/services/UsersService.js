@@ -1,8 +1,6 @@
 var pUtil = require('../util/PageUtil');
 var UserModel = require('../models/userModel');
 var _ = require('underscore');
-const mongoose = require('mongoose');
-const db = mongoose.connection;
 
 module.exports = {
 
@@ -43,42 +41,6 @@ module.exports = {
 
             });
         });
-
-        UserModel.aggregate([{ $group: { _id: '$status', count: { $sum: 1 } } }], function (err, result) {
-            var statusObj = {};
-            if (result) {
-                var keys = Object.keys(result);
-                for (var i = 0; i < keys.length; i++) {
-                    var status = result[keys[i]]._id;
-                    var count = result[keys[i]].count;
-                    statusObj[status] = count;
-                }
-                console.log("statusObj", statusObj);
-            }
-            UserModel.aggregate([{ $group: { _id: '$role', count: { $sum: 1 } } }], function (err, result) {
-                var rolesObj = {};
-                var keys = Object.keys(result);
-                for (var i = 0; i < keys.length; i++) {
-                    var role = result[keys[i]]._id;
-                    var count = result[keys[i]].count;
-                    rolesObj[role] = count;
-                }
-                console.log("rolesObj", rolesObj);
-            })
-
-            
-            console.log("dbValue-----", db.getCollection('news').count());
-
-            // db.news.count, function (err, value) {
-            //     console.log("news", value);
-            // }
-            // db.events.count, function (err, value) {
-            //     console.log("events", value);
-            // }
-            // db.advitisments.count, function (err, value) {
-            //     console.log("advitisments", value);
-            // }
-        })
     },
 
     findOne: function (req, next) {

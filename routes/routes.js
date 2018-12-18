@@ -25,6 +25,16 @@ router.delete('/myaccount/:userID', userConroller.delete);
 
 /***************************************************************************/
 
+const dashboardConroller = require('../api/controllers/DashboardConroller');
+
+/***************************************************************************/
+/*Dashboard Controller*/
+/***************************************************************************/
+router.get('/count/list', dashboardConroller.find);
+
+
+/***************************************************************************/
+
 
 const newsController = require('../api/controllers/NewsController');
 
