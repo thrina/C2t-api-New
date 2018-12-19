@@ -35,14 +35,16 @@ module.exports = {
 
                 NewsModel.count('', function (err, value) {
                     if (value) rows.newsCount = value;
+                    else rows.newsCount = 0;
 
                     EventModel.count('', function (err, value) {
                         if (value) rows.eventsCount = value;
+                        else rows.eventsCount = 0;
 
                         Advertisments.count('', function (err, value) {
                             if (value) rows.advertismentsCount = value;
+                            else rows.advertismentsCount = 0;
 
-                            console.log("Result", rows);
                             rows.status = "success";
                             return next(null, rows);
                         })
