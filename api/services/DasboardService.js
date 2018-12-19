@@ -2,7 +2,6 @@ var UserModel = require('../models/userModel');
 var NewsModel = require('../models/newsModel')
 var EventModel = require('../models/eventModel')
 var Advertisments = require('../models/advertisementModel')
-var PromiseAll = require('promises-all');
 var _ = require('underscore');
 
 module.exports = {
