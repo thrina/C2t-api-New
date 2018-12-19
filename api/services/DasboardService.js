@@ -28,7 +28,7 @@ module.exports = {
                     for (var i = 0; i < keys.length; i++) {
                         var role = result[keys[i]]._id;
                         var count = result[keys[i]].count;
-                        rolesObj[role.toLowerCase()] = count;
+                        rolesObj[role] = count;
                     }
                 }
                 rows.usersCount = rolesObj;
