@@ -6,7 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "bcrypt": "^3.0.2",
+    "bcrypt": "^1.0.3",
     "circular-json": "^0.5.9",
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.5",
