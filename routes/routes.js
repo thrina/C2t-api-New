@@ -31,6 +31,7 @@ const dashboardConroller = require('../api/controllers/DashboardConroller');
 /*Dashboard Controller*/
 /***************************************************************************/
 router.get('/count/list', dashboardConroller.find);
+router.get('/search/list', dashboardConroller.search);
 
 
 /***************************************************************************/

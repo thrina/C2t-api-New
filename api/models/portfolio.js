@@ -21,6 +21,10 @@ const PortfolioSchema = new Schema({
         type: String,
         trim: true,
     },
+    userID: {
+        type: String,
+        trim: true,
+    },
     imgUrl: {
         type: Date,
         trim: true

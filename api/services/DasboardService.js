@@ -1,7 +1,9 @@
 var UserModel = require('../models/userModel');
 var NewsModel = require('../models/newsModel')
 var EventModel = require('../models/eventModel')
-var Advertisments = require('../models/advertisementModel')
+var Advertisments = require('../models/advertisementModel');
+var Portfolio = require('../models/portfolio');
+var pUtil = require('../util/PageUtil');
 var _ = require('underscore');
 
 module.exports = {
@@ -55,6 +57,64 @@ module.exports = {
             })
 
         })
+    },
+
+    search: function (req, sortBy, next) {
+        var result = {};
+        var Paging = pUtil.makeQuery(req, null, sortBy);
+        delete req.query.sortBy;
+        delete req.query.page;
+        delete req.query.limit;
+        var query = {};
+        var orSearch = [];
+        var portfolioQuery = {};
+        var searchKey = req.query.searchText;
+
+        var portfolioOrSearch = [];
+        if (searchKey) {
+            portfolioOrSearch.push({ 'talent': { $regex: searchKey, $options: "$i" } });
+            portfolioOrSearch.push({ 'title': { $regex: searchKey, $options: "$i" } });
+            portfolioOrSearch.push({ 'keywordGroup': { $regex: searchKey, $options: "$i" } });
+        }
+        if (portfolioOrSearch.length) { portfolioQuery["$or"] = portfolioOrSearch; }
+
+        var userIDs = [];
+        Portfolio.find(portfolioQuery, { userID: true }, null, function (err, portfolio) {
+            if (portfolio.length >= 0) {
+                _.each(portfolio, function (item) {
+                    userIDs.push(item.userID);
+                })
+            };
+
+            if (userIDs) {
+                orSearch.push({ '_id': { "$in": userIDs } });
+            }
+            if (searchKey) {
+                orSearch.push({ 'firstName': { $regex: searchKey, $options: "$i" } });
+                orSearch.push({ 'lastName': { $regex: searchKey, $options: "$i" } });
+            }
+            if (orSearch.length) { query["$or"] = orSearch; }
+
+            UserModel.count(query, function (err, value) {
+                result.totalRecords = value;
+                result.total = pUtil.calculateTotalPages(value, Paging['limit']);
+                UserModel.find(query, null, Paging, function (err, users) {
+                    if (err) {
+                        return next({
+                            "status": "Failed to query DB"
+                        });
+                    };
+                    if (users.length >= 0) {
+                        result.status = "success";
+                        result.rows = users
+                    };
+                    return next(null, result);
+
+                });
+            });
+        });
+
+
     }
 }
 
