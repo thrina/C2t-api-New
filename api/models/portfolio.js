@@ -26,8 +26,11 @@ const PortfolioSchema = new Schema({
         trim: true,
     },
     imgUrl: {
-        type: Date,
+        type: String,
         trim: true
+    },
+    imgData : {
+        type: Buffer
     }
 }, {
         timestamps: true,

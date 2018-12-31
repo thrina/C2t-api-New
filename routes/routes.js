@@ -3,6 +3,18 @@ const router = express.Router();
 
 const authConroller = require('../api/controllers/AuthConroller');
 
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: function(req,file,cb){
+        cb(null,'public/assets')
+    },
+    filename: function(req,file,cb){
+        cb(null,file.originalname);
+    }
+});
+
+const upload = multer({storage:storage, limits:{fileSize:1024 * 1024 *5}}).single('portfolioImage');
+
 /***************************************************************************/
 /*Auth Controller*/
 /***************************************************************************/
@@ -118,7 +130,7 @@ const portfolioController = require('../api/controllers/PortfolioController');
 /*Portfolio Controller*/
 /***************************************************************************/
 router.get('/portfolio/list', portfolioController.find);
-router.post('/portfolio/create', portfolioController.create);
+router.post('/portfolio/create', upload,portfolioController.create);
 router.get('/portfolio/:id', portfolioController.findOne);
 router.put('/portfolio/:id', portfolioController.update);
 router.delete('/portfolio/:id', portfolioController.delete);

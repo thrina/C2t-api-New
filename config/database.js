@@ -1,8 +1,8 @@
 //Set up mongoose connection
 console.log('in db config');
 const mongoose = require('mongoose');
-const mongoDB = 'mongodb://localhost/c2t';
-mongoose.connect(mongoDB, { useNewUrlParser: true });
+const mongoDB = 'mongodb://localhost:27017/c2t';
+mongoose.connect(mongoDB, { useCreateIndex: true,useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 
 module.exports = mongoose;
