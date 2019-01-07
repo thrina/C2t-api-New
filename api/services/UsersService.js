@@ -89,7 +89,6 @@ module.exports = {
                         "status": "Failed to query DB"
                     });
                 };
-
                 next(null, {
                     "status": "success"
                 });

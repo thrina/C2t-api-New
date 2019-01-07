@@ -15,7 +15,7 @@ const UserSchema = new Schema({
     firstName: {
         type: String,
         trim: true,
-        required: false,
+        required: false
     },
     lastName: {
         type: String,
@@ -34,7 +34,7 @@ const UserSchema = new Schema({
         trim: true,
         required: false
     },
-    phone: {
+    mobile: {
         type: String,
         trim: true,
         required: false
