@@ -1,4 +1,5 @@
 const TeamsService = require('../services/TeamsService');
+const MongoDB = require('mongodb');
 
 module.exports = {
 
@@ -27,6 +28,9 @@ module.exports = {
     },
 
     create: function (req, res) {
+        req.body['imgUrl'] = req.file.path;
+        req.body['imgData'] = new MongoDB.Binary(req.body.photo);
+        
         var obj = req.body;
         TeamsService.create(req, obj, function (err, result) {
             if (err) {

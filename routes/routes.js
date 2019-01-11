@@ -13,7 +13,19 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({storage:storage, limits:{fileSize:1024 * 1024 *5}}).single('portfolioImage');
+// const multer1 = require('multer');
+// const storage1 = multer1.diskStorage({
+//     destination: function(req,file,cb){
+//         cb(null,'public/assets')
+//     },
+//     filename: function(req,file,cb){
+//         cb(null,file.originalname);
+//     }
+// });
+
+const portfolioImg = multer({storage:storage, limits:{fileSize:1024 * 1024 *5}}).single('portfolioImage');
+const teamImg = multer({storage:storage, limits:{fileSize:1024 * 1024 *5}}).single('photo');
+
 
 /***************************************************************************/
 /*Auth Controller*/
@@ -130,7 +142,7 @@ const portfolioController = require('../api/controllers/PortfolioController');
 /*Portfolio Controller*/
 /***************************************************************************/
 router.get('/portfolio/list', portfolioController.find);
-router.post('/portfolio/create', upload,portfolioController.create);
+router.post('/portfolio/create', portfolioImg,portfolioController.create);
 router.get('/portfolio/:id', portfolioController.findOne);
 router.put('/portfolio/:id', portfolioController.update);
 router.delete('/portfolio/:id', portfolioController.delete);
@@ -160,7 +172,7 @@ const teamController = require('../api/controllers/TeamController');
 /*Team Controller*/
 /***************************************************************************/
 router.get('/team/list', teamController.find);
-router.post('/team/create', teamController.create);
+router.post('/team/create',teamImg, teamController.create);
 router.get('/team/:id', teamController.findOne);
 router.put('/team/:id', teamController.update);
 router.delete('/team/:id', teamController.delete);

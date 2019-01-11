@@ -18,10 +18,6 @@ const TalentsSchema = new Schema({
         type: String,
         trim: true,
     },
-    imgUrl: {
-        type: Date,
-        trim: true
-    }
 }, {
         timestamps: true,
         strict: false,
