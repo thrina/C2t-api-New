@@ -27,9 +27,12 @@ const EventSchema = new Schema({
 		trim: true
 	},
 	imgUrl: {
-		type: Date,
+		type: String,
 		trim: true
 	},
+	imgData : {
+        type: Buffer
+    },
 	status: {
 		type: String,
 		default: 'inActive',

@@ -16,6 +16,10 @@ const storage = multer.diskStorage({
 const portfolioImg = multer({storage:storage, limits:{fileSize:1024 * 1024 *5}}).single('portfolioImage');
 const teamImg = multer({storage:storage, limits:{fileSize:1024 * 1024 *5}}).single('photo');
 const newsImage = multer({storage:storage, limits:{fileSize:1024 * 1024 *5}}).single('newsImage');
+const eventImage = multer({storage:storage, limits:{fileSize:1024 * 1024 *5}}).single('eventImage');
+const advertisementImage = multer({storage:storage, limits:{fileSize:1024 * 1024 *5}}).single('advertisementImage');
+
+
 
 
 /***************************************************************************/
@@ -73,7 +77,7 @@ const eventController = require('../api/controllers/EventController');
 /*Event Controller*/
 /***************************************************************************/
 router.get('/event/list', eventController.find);
-router.post('/event/create', eventController.create);
+router.post('/event/create', eventImage, eventController.create);
 router.get('/event/:eventID', eventController.findOne);
 router.put('/event/:eventID', eventController.update);
 router.delete('/event/:eventID', eventController.delete);
@@ -88,7 +92,7 @@ const advertisementController = require('../api/controllers/AdvertisementControl
 /*Advertisement Controller*/
 /***************************************************************************/
 router.get('/advertisement/list', advertisementController.find);
-router.post('/advertisement/create', advertisementController.create);
+router.post('/advertisement/create', advertisementImage, advertisementController.create);
 router.get('/advertisement/:advertisementID', advertisementController.findOne);
 router.put('/advertisement/:advertisementID', advertisementController.update);
 router.delete('/advertisement/:advertisementID', advertisementController.delete);

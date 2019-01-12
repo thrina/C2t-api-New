@@ -27,8 +27,11 @@ const AdvertisementSchema = new Schema({
         trim: true
     },
     imgUrl: {
-        type: Date,
-        trim: true
+		type: String,
+		trim: true
+	},
+	imgData : {
+        type: Buffer
     },
     status: {
         type: String,
