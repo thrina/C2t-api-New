@@ -13,18 +13,9 @@ const storage = multer.diskStorage({
     }
 });
 
-// const multer1 = require('multer');
-// const storage1 = multer1.diskStorage({
-//     destination: function(req,file,cb){
-//         cb(null,'public/assets')
-//     },
-//     filename: function(req,file,cb){
-//         cb(null,file.originalname);
-//     }
-// });
-
 const portfolioImg = multer({storage:storage, limits:{fileSize:1024 * 1024 *5}}).single('portfolioImage');
 const teamImg = multer({storage:storage, limits:{fileSize:1024 * 1024 *5}}).single('photo');
+const newsImage = multer({storage:storage, limits:{fileSize:1024 * 1024 *5}}).single('newsImage');
 
 
 /***************************************************************************/
@@ -67,7 +58,7 @@ const newsController = require('../api/controllers/NewsController');
 /*News Controller*/
 /***************************************************************************/
 router.get('/news/list', newsController.find);
-router.post('/news/create', newsController.create);
+router.post('/news/create', newsImage, newsController.create);
 router.get('/news/:newsID', newsController.findOne);
 router.put('/news/:newsID', newsController.update);
 router.delete('/news/:newsID', newsController.delete);

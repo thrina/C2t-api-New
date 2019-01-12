@@ -70,14 +70,14 @@ module.exports = {
     },
 
     create: function (req, obj, next) {
-        if (!req.body.title) {
-            return next({
-                "message": "Title is mandatory"
-            })
-        }
-        if (req.body.date) {
-            req.body.date = new Date(obj.date);
-        };
+        // if (!req.body.title) {
+        //     return next({
+        //         "status": "Title is mandatory"
+        //     })
+        // }
+        // if (req.body.date) {
+        //     req.body.date = new Date(obj.date);
+        // };
         News.create(req.body, function (err, news) {
             var result = {};
             if (err) {

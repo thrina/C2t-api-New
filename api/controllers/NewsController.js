@@ -1,5 +1,5 @@
 const NewsService = require('../services/NewsService');
-
+const MongoDB = require('mongodb');
 module.exports = {
 
     find: function (req, res) {
@@ -27,6 +27,8 @@ module.exports = {
     },
 
     create: function (req, res) {
+        req.body['imgUrl'] = req.file.path;
+        req.body['imgData'] = new MongoDB.Binary(req.body.newsImage);
         var obj = req.body;
         NewsService.create(req, obj, function (err, result) {
             if (err) {
