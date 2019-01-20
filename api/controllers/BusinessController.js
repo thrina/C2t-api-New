@@ -1,5 +1,5 @@
 const BusinessService = require('../services/BusinessService');
-
+const MongoDB = require('mongodb');
 module.exports = {
 
     find: function (req, res) {
@@ -27,6 +27,9 @@ module.exports = {
     },
 
     create: function (req, res) {
+        req.body['imgUrl'] = req.file.path;
+        req.body['imgData'] = new MongoDB.Binary(req.body.bussImage);
+        
         var obj = req.body;
         BusinessService.create(req, obj, function (err, result) {
             if (err) {

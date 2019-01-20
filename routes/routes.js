@@ -18,6 +18,8 @@ const teamImg = multer({storage:storage, limits:{fileSize:1024 * 1024 *5}}).sing
 const newsImage = multer({storage:storage, limits:{fileSize:1024 * 1024 *5}}).single('newsImage');
 const eventImage = multer({storage:storage, limits:{fileSize:1024 * 1024 *5}}).single('eventImage');
 const advertisementImage = multer({storage:storage, limits:{fileSize:1024 * 1024 *5}}).single('advertisementImage');
+const bussImage = multer({storage:storage, limits:{fileSize:1024 * 1024 *5}}).single('bussImage');
+
 
 
 

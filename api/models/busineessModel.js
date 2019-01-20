@@ -20,11 +20,18 @@ const BusinessSchema = new Schema({
     talent: {
         type: String,
         trim: true,
+    },
+    imgUrl : {
+        type: String,
+        trim: true
+    },
+    imgData : {
+        type: Buffer
     }
-}, {
-        timestamps: true,
-        strict: false,
-        versionKey: false
+    }, {
+            timestamps: true,
+            strict: false,
+            versionKey: false
     });
 
 module.exports = mongoose.model('Business', BusinessSchema)
