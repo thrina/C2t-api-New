@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
 const shortid = require('shortid');
 const TokenGenerator = require('uuid-token-generator');
 
@@ -48,11 +48,6 @@ const UserSchema = new Schema({
         type: String,
         required: false
     },
-    imgUrl: {
-        type: String,
-        trim: true,
-        required: false
-    },
     gender: {
         type: String,
         trim: true,
@@ -62,6 +57,13 @@ const UserSchema = new Schema({
         type: Boolean,
         trim: true,
         default: false
+    },
+    imgUrl: {
+        type: String,
+        trim: true
+    },
+    imgData : {
+        type: Buffer
     }
 
 }, {
@@ -71,7 +73,7 @@ const UserSchema = new Schema({
     });
 
 UserSchema.pre('save', function (next) {
-    this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(8), null);
+    this.password = bcryptjs.hashSync(this.password, bcryptjs.genSaltSync(8), null);
     const authToken = new TokenGenerator(256, TokenGenerator.BASE62);
     this.token = authToken.generate();
     next();

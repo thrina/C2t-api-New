@@ -1,5 +1,5 @@
 var pUtil = require('../util/PageUtil');
-const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
 var UserModel = require('../models/userModel');
 
 module.exports = {
@@ -15,7 +15,7 @@ module.exports = {
                     "status": "Failed to query DB"
                 });
             }
-            if (userInfo != null && bcrypt.compareSync(req.body.password, userInfo.password)) {
+            if (userInfo != null && bcryptjs.compareSync(req.body.password, userInfo.password)) {
                 result.status = 'success';
                 result.totalRecords = userInfo.length;
                 result.rows = userInfo;

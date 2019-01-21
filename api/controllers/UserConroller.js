@@ -1,4 +1,5 @@
 const UsersService = require('../services/UsersService');
+const MongoDB = require('mongodb');
 
 module.exports = {
 
@@ -27,6 +28,9 @@ module.exports = {
     },
 
     update: function (req, res) {
+        req.body['imgUrl'] = req.file.path;
+        req.body['imgData'] = new MongoDB.Binary(req.body.userImage); 
+
         var obj = req.body;
         UsersService.update(req, obj, function (err, result) {
             if (err) {

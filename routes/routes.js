@@ -19,6 +19,7 @@ const newsImage = multer({storage:storage, limits:{fileSize:1024 * 1024 *5}}).si
 const eventImage = multer({storage:storage, limits:{fileSize:1024 * 1024 *5}}).single('eventImage');
 const advertisementImage = multer({storage:storage, limits:{fileSize:1024 * 1024 *5}}).single('advertisementImage');
 const bussImage = multer({storage:storage, limits:{fileSize:1024 * 1024 *5}}).single('bussImage');
+const userImage = multer({storage:storage, limits:{fileSize:1024 * 1024 *5}}).single('userImage');
 
 
 
@@ -40,7 +41,7 @@ const userConroller = require('../api/controllers/UserConroller');
 /***************************************************************************/
 router.get('/user/list', userConroller.find);
 router.get('/myaccount/:userID', userConroller.findOne);
-router.put('/myaccount/:userID', userConroller.update);
+router.put('/myaccount/:userID', userImage, userConroller.update);
 router.delete('/myaccount/:userID', userConroller.delete);
 
 
@@ -154,7 +155,7 @@ const businessController = require('../api/controllers/BusinessController');
 /*Business Controller*/
 /***************************************************************************/
 router.get('/business/list', businessController.find);
-router.post('/business/create', businessController.create);
+router.post('/business/create',bussImage, businessController.create);
 router.get('/business/:id', businessController.findOne);
 router.put('/business/:id', businessController.update);
 router.delete('/business/:id', businessController.delete);
