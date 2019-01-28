@@ -44,7 +44,6 @@ router.get('/myaccount/:userID', userConroller.findOne);
 router.put('/myaccount/:userID', userImage, userConroller.update);
 router.delete('/myaccount/:userID', userConroller.delete);
 
-
 /***************************************************************************/
 
 const dashboardConroller = require('../api/controllers/DashboardConroller');
